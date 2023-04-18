@@ -3,7 +3,7 @@
 ## Add or change your files
 
 ```
-gitlab origin -> https://gitlab.com/giridharvedula/devopsroboshop.git
+gitlab origin -> https://github.com/giridharvedula/devopsroboshop.git
 ```
 
 ## In this repository, we have total 11 configurations files. 
