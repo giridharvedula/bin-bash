@@ -1,0 +1,11 @@
+data "aws_instance" "devops" {
+    instance_id = ""
+}
+
+output "instance_id" {
+    value = data.aws_instance.devops.instance_id
+}
+
+output "private_ip" {
+    value = data.aws_instance.devops.private_ip
+}
