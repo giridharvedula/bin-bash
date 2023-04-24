@@ -1,16 +1,13 @@
-script_path=$(dirname $0)
-source ${script_path}/common.sh
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/sh-files/common.sh
 
-echo -e "\e[36m>>>>>>>>> Copy MongoDB Repo file <<<<<<<<\e[0m"
-cp mongodb.repo /etc/yum.repos.d/mongo.repo
+cp ${script_path}/repo-files/mongodb.repo /etc/yum.repos.d/mongo.repo
 
-echo -e "\e[36m>>>>>>>>> Copy MongoDB Repo file <<<<<<<<\e[0m"
 yum install mongodb-org -y 
 systemctl enable mongod 
-systemctl start mongod 
+systemctl start mongod
 
-echo -e "\e[36m>>>>>>>>> editing the local host IP <<<<<<<<\e[0m"
-sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/mongod.conf
+sed -i -e ':çs|127.0.0.1|0.0.0.0|' /etc/mongod.conf
 
-echo -e "\e[36m>>>>>>>>> Restart the mongodb and enable <<<<<<<<\e[0m"
 systemctl restart mongod
