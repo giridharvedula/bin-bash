@@ -1,31 +1,34 @@
-script=$(realpath "$0")
-script_path=$(dirname "$script")
-source ${script_path}/sh-files/common.sh
+#!/bin/bash
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+# Install the NodeJS 18
+dnf module enable nodejs:18 -y
+dnf install nodejs -y
 
-yum install nodejs -y
+# Add application user 
+useradd roboshop
 
-useradd ${app_user}
+# Create a App directory
+mkdir /app
 
-mkdir /app 
-
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip 
-cd /app 
+# Download the application code
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip
+cd /app ||
 unzip /tmp/user.zip
 
-cd /app 
-npm install 
+# Install NPM dependencie 
+cd /app ||
+npm install
 
-cp ${script_path}/service-files/user.service /etc/systemd/system/user.service
+# Copy the user service file
+cp ../service-files/user.service /etc/systemd/system/
 
+# Reload the deamon, enable and start the servie 
 systemctl daemon-reload
-
-systemctl enable user 
+systemctl enable user
 systemctl start user
 
-cp ${script_path}/repo-files/mongodb.repo /etc/yum.repos.d/mongo.repo
+# Copy the MongoDB repo file, Install the MongoDB client and load the schema 
+cp ../repo-files/mongodb.repo /etc/yum.repos.d/
+dnf install mongodb-org-shell -y 
+mongo --host mongodb-server-ip-address </app/schema/user.js
 
-yum install mongodb-org-shell -y
-
-mongo --host MONGODB-SERVER-IPADDRESS </app/schema/user.js

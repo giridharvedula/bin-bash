@@ -18,7 +18,7 @@ cd /usr/share/nginx/html ||
 unzip /tmp/frontend.zip
 
 # Copy Nginx reverse proxy configuration file
-cp cd ../roboshop.conif /etc/nginx/default.d/
+cp ../roboshop.conif /etc/nginx/default.d/
 
 # Restart Nginx server to reload the changes
 systemctl restart nginx

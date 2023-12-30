@@ -1,6 +1,7 @@
 [Unit]
 Description = User Service
 
+# Need to replace local host with the IP Addresses of the actual server component
 [Service]
 User=roboshop
 Environment=MONGO=true

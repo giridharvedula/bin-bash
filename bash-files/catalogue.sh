@@ -1,33 +1,39 @@
-script=$(realpath "$0")
-script_path=$(dirname "$script")
-source ${script_path}/sh-files/common.sh
+#!/bin/bash
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+# Enable NodeJs 18 module 
+dnf module enable nodejs:18 -y
 
-yum install nodejs -y
+# Install the nodejs module 
+dnf install nodejs -y
 
-useradd ${app_user}
+# Add an application user 
+useradd roboshop 
 
-mkdir /app 
+# Create an application directory 
+mkdir /app
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip 
-cd /app 
-
+# Download the appliction code to the above created directory
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
+cd /app ||
 unzip /tmp/catalogue.zip
+cd /app || 
+npm install
 
-cd /app 
-npm install 
+# Copy catalogue service file 
+cp ../service-files/catalogue.service /etc/systemd/system/
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+# replace the MongoDB-Server-IP address here 
+sed -i '' 's/127.0.0.0/<IP-Address/' /etc/systemd/system/catalogue.service
 
+# Resload the daemon, enable and start servie 
 systemctl daemon-reload
+systemctl enable catalogue
+systemctl start catalogue 
 
-systemctl enable catalogue 
-systemctl start catalogue
+# Copy the MongoDB repo file, Install the MongoDB client and load the schema 
+cp ../repo-files/mongodb.repo /etc/yum.repos.d/
+dnf install mongodb-org-shell -y
+mongo --host "mongodb-server-ip-address" </app/schema/catalogue.js
 
-cp mongodb.repo /etc/yum.repos.d/mongodb.repo
-
-yum install mongodb-org-shell -y
-
-mongo --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js
+# Udate catalogue server ip address in frontend configuration <roboshop.conf>
 

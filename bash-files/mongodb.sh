@@ -15,4 +15,3 @@ sed -i '' 's/127.0.0.0/0.0.0.0/' /etc/mongodb.conf
 
 # Restar the Mongodb service
 systemctl restart mongod
-

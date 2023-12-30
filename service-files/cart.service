@@ -1,6 +1,7 @@
 [Unit]
 Description = Cart Service
 
+# Need to replace local host with the IP Addresses of the actual server component
 [Service]
 User=roboshop
 Environment=REDIS_HOST=<REDIS-SERVER-IP>

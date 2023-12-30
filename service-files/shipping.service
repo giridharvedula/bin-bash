@@ -1,6 +1,7 @@
 [Unit]
 Description=Shipping Service
 
+# Need to replace local host with the IP Addresses of the actual server component
 [Service]
 User=roboshop
 Environment=CART_ENDPOINT=<CART-SERVER-IPADDRESS>:8080
