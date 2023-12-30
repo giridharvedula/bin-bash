@@ -19,7 +19,7 @@ https://github.com/giridharvedula/roboshop.git
     10. Payment - Payment processing instance 
     11. Dispatch - Delivery report instance
 
-> ## <a> _shell-auto-config directory files_ </a> 
+> ## <a> _service files for shell configurations files_ </a> 
 >> 1. `frontend.sh --> roboshop.conf`
 >> 2. `mongodb.sh --> mongodb.repo`
 >> 3. `catalogue.sh --> catalogue.service`
