@@ -2,7 +2,6 @@
 source common.sh
 # Variables 
 componenet=catalogue
-log=/tmp/roboshop.log
 
 # Enable NodeJs 18 module 
 # shellcheck disable=SC2129
@@ -35,6 +34,7 @@ sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/$componenet.service | ba
 
 # Resload the daemon, enable and start servie 
 systemctl daemon-reload | bash &>> $log
+systemctl enable $componenet | bash &>> $log
 systemctl start $componenet | bash &>> $log
 
 # Copy the MongoDB repo file, Install the MongoDB client and load the schema 
