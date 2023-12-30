@@ -12,11 +12,11 @@ mkdir /app
 
 # Download the application code
 curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user.zip
-cd /app ||
+cd /app
 unzip /tmp/user.zip
 
 # Install NPM dependencie 
-cd /app ||
+cd /app
 npm install
 
 # Copy the user service file

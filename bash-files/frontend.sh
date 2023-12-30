@@ -1,5 +1,5 @@
 #!/bin/bash
-source common.sh
+source ../common.sh
 # installing nging server 
 yum install nginx -y | bash &>> $log
 

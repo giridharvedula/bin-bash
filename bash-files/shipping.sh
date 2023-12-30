@@ -9,11 +9,11 @@ useradd roboshop
 # Create an app directory, download code from source URL and unzip.
 mkdir /app
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip
-cd /app ||
+cd /app
 unzip /tmp/shipping.zip
 
 # Build the package from the source code downloaded
-cd /app ||
+cd /app
 mvn clean package
 mv target/shipping-1.0.jar shipping.jar
 

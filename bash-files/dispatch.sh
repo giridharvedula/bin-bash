@@ -9,11 +9,11 @@ useradd roboshop
 # Download the appliction code to the above created directory
 mkdir /app
 curl -L -o /tmp/dispatch.zip https://roboshop-artifacts.s3.amazonaws.com/dispatch.zip 
-cd /app ||
+cd /app
 unzip /tmp/dispatch.zip
 
 # Install the dependencies 
-cd /app ||
+cd /app
 go mod init dispatch
 go get 
 go build

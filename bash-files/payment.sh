@@ -8,11 +8,11 @@ useradd roboshop
 
 # Download the appliction code to the above created directory
 curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment.zip 
-cd /app ||
+cd /app 
 unzip /tmp/payment.zip
 
 # Install the dependencies 
-cd /app ||
+cd /app
 pip 3.6 install -r requirements.txt
 
 # Copy catalogue service file 
