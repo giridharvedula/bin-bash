@@ -5,7 +5,7 @@ https://gitlab.com/giridharvedula/devopsroboshop.git
 ```
 
 # Project details:
-## <a> Project is having the following components and each component as an individual server (instance) to host the data.</a>
+## <a> Project is having the following components as microservices and each component as an individual server (instance) to host the data.</a>
 
     1. Frontend - Nginx web server instance 
     2. MongoDB - Database server instance
