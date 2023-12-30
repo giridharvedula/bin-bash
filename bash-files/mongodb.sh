@@ -1,13 +1,18 @@
-script=$(realpath "$0")
-script_path=$(dirname "$script")
-source ${script_path}/sh-files/common.sh
+#!/bin/bash
 
-cp ${script_path}/repo-files/mongodb.repo /etc/yum.repos.d/mongo.repo
+# Setup MongoDB repo file into the repo directory
+cp ../repo-files/mongodb.repo /etc/yum.repos.d/
 
-yum install mongodb-org -y 
-systemctl enable mongod 
-systemctl start mongod
+# Install MongoDB server by executing below command 
+dnf install mongodb-org -y
 
-sed -i -e ':çs|127.0.0.1|0.0.0.0|' /etc/mongod.conf
+# Enable and start MongoDB service 
+systemctl enable mongodb
+systemctl start mongodb
 
+# Update the Listen address for MongoDB server
+sed -i '' 's/127.0.0.0/0.0.0.0/' /etc/mongodb.conf
+
+# Restar the Mongodb service
 systemctl restart mongod
+
