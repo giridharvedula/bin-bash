@@ -1,31 +1,41 @@
-script=$(realpath "$0")
-script_path=$(dirname "$script")
-source ${script_path}/sh-files/common.sh
+#!/bin/bash
 
-yum install maven -y
+# Install Maven 
+dnf install maven 
 
-useradd ${app_user}
+# Configure the application
+useradd roboshop
 
-mkdir /app 
-
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip 
-cd /app 
+# Create an app directory, download code from source URL and unzip.
+mkdir /app
+curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip
+cd /app ||
 unzip /tmp/shipping.zip
 
-cd /app 
-mvn clean package 
-mv target/shipping-1.0.jar shipping.jar 
+# Build the package from the source code downloaded
+cd /app ||
+mvn clean package
+mv target/shipping-1.0.jar shipping.jar
 
-cp ${script_path}/service-files/shipping.sh /etc/systemd/system/shipping.service
+# Copy the user service file
+cp ../service-files/shipping.service /etc/systemd/system/
+# Replace the Cart IP, MySQL IP addresses of the actual component
+sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/cart.service
 
+# Reload the deamon, enable and start the servie 
 systemctl daemon-reload
-
-systemctl enable shipping 
+systemctl enable shipping
 systemctl start shipping
 
-yum install mysql -y 
+# Disable default MySQL 8, add MySQL 5.7 repo and install it
+dnf module mysql -y
+cp ../repo-files/mysql.repo /etc/yum.repos.d/
+dnf install mysql -y 
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+# Load schema
+mysql -h "MYSQL-SERVER-IPADDRESS" -uroot -pRoboShop@1 < /app/schema/shipping.sql
 
+# Restart shipping 
 systemctl restart shipping
 
+# Udate catalogue server ip address in frontend configuration <roboshop.conf>

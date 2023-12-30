@@ -23,7 +23,7 @@ npm install
 cp ../service-files/catalogue.service /etc/systemd/system/
 
 # replace the MongoDB-Server-IP address here 
-sed -i '' 's/127.0.0.0/<IP-Address/' /etc/systemd/system/catalogue.service
+sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/catalogue.service
 
 # Resload the daemon, enable and start servie 
 systemctl daemon-reload
@@ -36,4 +36,3 @@ dnf install mongodb-org-shell -y
 mongo --host "mongodb-server-ip-address" </app/schema/catalogue.js
 
 # Udate catalogue server ip address in frontend configuration <roboshop.conf>
-

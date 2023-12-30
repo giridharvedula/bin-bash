@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Configure Redis RPM repo file and enable Redus 6.2 module for installation 
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
-dnf module enable redis:remi-6.2 -y 
-dnf install redis -y
+# Disable default MySQL 8, add MySQL 5.7 repo and install it
+dnf module mysql -y
+cp ../repo-files/mysql.repo /etc/yum.repos.d/
+dnf install mysql-community-server -y 
 
-# Update the Redis conf file to listen 127.0.0.0 > 0.0.0.0
-sed -i '' 's/127.0.0.0/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf 
+# Start MySQL server 
+systemctl enable mysqld
+systemctl start mysqld
 
-# Enable and Start Redis service 
-systemctl enable redis
-systemctl start redis
+# Set the root password for MySQL 
+mysql_secure_installation --set-root-pass RoboShop@1
 

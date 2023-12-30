@@ -1,17 +1,17 @@
-script=$(realpath "$0")
-script_path=$(dirname "$script")
-source ${script_path}/sh-files/common.sh
+#!/bin/bash
 
+# Configure the YUM repos
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
-
-yum install erlang -y
-
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
 
-yum install rabbitmq-server -y 
+# Install RabbitMQ
+dnf install rabbitmq-server -y 
 
+# Enable and Start RabbitMQ service
 systemctl enable rabbitmq-server 
 systemctl start rabbitmq-server 
 
+# Create a user name and pass for RabbitMQ 
 rabbitmqctl add_user roboshop roboshop123
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+

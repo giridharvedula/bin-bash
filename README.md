@@ -1,7 +1,7 @@
 # DevOps RoboShop Project
 
 ```
-https://gitlab.com/giridharvedula/devopsroboshop.git
+https://github.com/giridharvedula/roboshop.git
 ```
 
 # Project details:

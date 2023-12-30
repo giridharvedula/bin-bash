@@ -21,6 +21,8 @@ npm install
 
 # Copy the user service file
 cp ../service-files/user.service /etc/systemd/system/
+# Replace the Redis and MongoDB IP Addresses of the actual server component
+sed -i '' 's/127.0.0.0/<IP-Address/' /etc/systemd/system/user.service
 
 # Reload the deamon, enable and start the servie 
 systemctl daemon-reload
@@ -32,3 +34,4 @@ cp ../repo-files/mongodb.repo /etc/yum.repos.d/
 dnf install mongodb-org-shell -y 
 mongo --host mongodb-server-ip-address </app/schema/user.js
 
+# Udate catalogue server ip address in frontend configuration <roboshop.conf>
