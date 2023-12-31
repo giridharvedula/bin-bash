@@ -1,24 +1,24 @@
 #!/bin/bash
 source ../common.sh
 # installing nging server 
-yum install nginx -y | bash &>> $log
+yum install nginx -y 
 
 # enble and start ngin server 
-systemctl enable nginx | bash &>> $log
-systemctl start nginx | bash &>> $log
+systemctl enable nginx 
+systemctl start nginx 
 
 # removing files from nginx host location 
-rm -rf /usr/share/nginx/html/* | bash &>> $log
+rm -rf /usr/share/nginx/html/* 
 
 # Download the frontend content 
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip | bash &>> $log
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip 
 
 # Change to Nginx directory and extract the frontend content 
-cd /usr/share/nginx/html | bash &>> $log
-unzip /tmp/frontend.zip | bash &>> $log
+cd /usr/share/nginx/html 
+unzip /tmp/frontend.zip 
 
 # Copy Nginx reverse proxy configuration file
-cp ../roboshop.conif /etc/nginx/default.d/ | bash &>> $log
+cp ../roboshop.conif /etc/nginx/default.d/
 
 # Restart Nginx server to reload the changes
-systemctl restart nginx | bash &>> $log
+systemctl restart nginx 
