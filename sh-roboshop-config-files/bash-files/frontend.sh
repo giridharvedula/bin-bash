@@ -22,3 +22,5 @@ cp ../roboshop.conif /etc/nginx/default.d/
 
 # Restart Nginx server to reload the changes
 systemctl restart nginx 
+
+cp "../repo-files/mongodb.repo" "/etc/us
