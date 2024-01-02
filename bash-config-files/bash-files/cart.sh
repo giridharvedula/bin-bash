@@ -21,7 +21,7 @@ cd /app || exit | bash &>>${log_path}
 npm install | bash &>>${log_path}
 
 # Copy the ${component} servie file
-cp ../service-files/${component}.service /etc/systemd/system/ | bash &>>${log_path}
+cp "/bash-config-files/service-files/"${component}".service" "/etc/systemd/system/" | 
 
 # Replace the Redis IP, Catalogue IP and Port addresses of the actual component
 sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/${component}.service | bash &>>${log_path}
@@ -32,4 +32,3 @@ systemctl enable ${component}.service | bash &>>${log_path}
 systemctl start ${component}.service | bash &>>${log_path}
 
 # Udate catalogue server ip address in frontend configuration <roboshop.conf>
-
