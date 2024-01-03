@@ -4,7 +4,8 @@
 component=cart
 
 # Enable NodeJs 18 module and install 
-dnf module enable nodejs:18 
+dnf module disable nodejs -y
+dnf module enable nodejs:18 -y
 dnf install nodejs -y 
 
 # Add an application user 
@@ -23,12 +24,7 @@ npm install
 # Copy the ${component} servie file
 cp "/bash-config-files/service-files/$component.service" "/etc/systemd/system/"
 
-# Replace the Redis IP, Catalogue IP and Port addresses of the actual component
-sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/$component.service 
-
 # Reload the deamon, enable and start the servie 
 systemctl daemon-reload 
 systemctl enable $component.service 
-systemctl start $component.service 
-
-# Udate catalogue server ip address in frontend configuration <roboshop.conf>
+systemctl restart $component.service 

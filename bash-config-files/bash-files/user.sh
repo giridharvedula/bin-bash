@@ -27,11 +27,9 @@ sed -i '' 's/127.0.0.0/<IP-Address/' /etc/systemd/system/user.service
 # Reload the deamon, enable and start the servie 
 systemctl daemon-reload
 systemctl enable user
-systemctl start user
+systemctl restart user
 
 # Copy the MongoDB repo file, Install the MongoDB client and load the schema 
 cp ../repo-files/mongodb.repo /etc/yum.repos.d/
 dnf install mongodb-org-shell -y 
-mongo --host mongodb-server-ip-address </app/schema/user.js
-
-# Udate catalogue server ip address in frontend configuration <roboshop.conf>
+mongo --host 10.0.2.227 </app/schema/user.js

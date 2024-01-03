@@ -7,7 +7,7 @@ component=catalogue
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y 
 dnf install nodejs -y 
-dnf install unzip -y
+
 
 # Add an application user 
 useradd roboshop  
@@ -23,19 +23,14 @@ cd /app
 npm install  
 
 # Copy ${component} service file 
-cp "/bash-config-files/service-files/catalogue.service" "/etc/systemd/system/"  
-
-# replace the MongoDB-Server-IP address here 
-sed -i -e 's/127.0.0.0/IP-Address/' /etc/systemd/system/catalogue.service 
+cp "/bash-config-files/service-files/catalogue.service" "/etc/systemd/system/" 
 
 # Resload the daemon, enable and start servie 
 systemctl daemon-reload  
 systemctl enable catalogue
-systemctl start catalogue  
+systemctl restart catalogue  
 
 # Copy the MongoDB repo file, Install the MongoDB client and load the schema 
 cp ../repo-files/mongodb.repo /etc/yum.repos.d/  
-dnf install mongodb-org-* -y  
-mongo --host "mongodb-server-ip-address" </app/schema/catalogue.js  
-
-# Udate ${component} server ip address in frontend configuration <roboshop.conf>
+dnf install mongodb-org-shell -y  
+mongo --host 10.0.2.227 </app/schema/catalogue.js  

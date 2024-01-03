@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install Maven 
-dnf install maven 
+dnf install maven -y
 
 # Configure the application
 useradd roboshop
@@ -25,15 +25,15 @@ sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/cart.service
 # Reload the deamon, enable and start the servie 
 systemctl daemon-reload
 systemctl enable shipping
-systemctl start shipping
+systemctl restart shipping
 
 # Disable default MySQL 8, add MySQL 5.7 repo and install it
-dnf module mysql -y
+dnf module disable mysql -y
 cp ../repo-files/mysql.repo /etc/yum.repos.d/
 dnf install mysql -y 
 
 # Load schema
-mysql -h "MYSQL-SERVER-IPADDRESS" -uroot -pRoboShop@1 < /app/schema/shipping.sql
+mysql -h 10.0.2.227 -uroot -pRoboShop@1 < /app/schema/shipping.sql
 
 # Restart shipping 
 systemctl restart shipping
