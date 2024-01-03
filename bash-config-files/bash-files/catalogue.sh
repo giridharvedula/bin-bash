@@ -4,36 +4,37 @@ source common.sh
 component=catalogue
 
 # Enable NodeJs 18 module and install 
-dnf module enable nodejs:18 -y | bash &>>${log_path}
-dnf install nodejs -y | bash &>>${log_path}
+dnf module disable nodejs -y
+dnf module enable nodejs:18 -y 
+dnf install nodejs -y 
 
 # Add an application user 
-useradd roboshop | bash &>>${log_path}
+useradd roboshop  
 
 # Create an app directory, download code from source URL and unzip.
-mkdir ${app_path} | bash &>>${log_path}
-curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip | bash &>>${log_path}
-cd ${app_path} | bash &>>${log_path}
-unzip /tmp/${component}.zip | bash &>>${log_path}
+mkdir /app
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip  
+cd /app
+unzip /tmp/catalogue.zip  
 
 # Install app dipendecy NPM 
-cd ${app_path} | bash &>>${log_path}
-npm install | bash &>>${log_path}
+cd /app
+npm install  
 
 # Copy ${component} service file 
-cp ../service-files/${component}.service /etc/systemd/system/ | bash &>>${log_path}
+cp "/bash-config-files/service-files/catalogue.service" "/etc/systemd/system/"  
 
 # replace the MongoDB-Server-IP address here 
-sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/${component}.service | bash &>>${log_path}
+sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/catalogue.service  
 
 # Resload the daemon, enable and start servie 
-systemctl daemon-reload | bash &>>${log_path}
-systemctl enable ${component} | bash &>>${log_path}
-systemctl start ${component} | bash &>>${log_path}
+systemctl daemon-reload  
+systemctl enable catalogue
+systemctl start catalogue  
 
 # Copy the MongoDB repo file, Install the MongoDB client and load the schema 
-cp ../repo-files/mongodb.repo /etc/yum.repos.d/ | bash &>>${log_path}
-dnf install mongodb-org-shell -y | bash &>>${log_path}
-mongo --host "mongodb-server-ip-address" </app/schema/${component}.js | bash &>>${log_path}
+cp ../repo-files/mongodb.repo /etc/yum.repos.d/  
+dnf install mongodb-org-shell -y  
+mongo --host "mongodb-server-ip-address" </app/schema/catalogue.js  
 
 # Udate ${component} server ip address in frontend configuration <roboshop.conf>
