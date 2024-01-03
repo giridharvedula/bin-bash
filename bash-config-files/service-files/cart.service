@@ -1,11 +1,10 @@
 [Unit]
 Description = Cart Service
 
-# Need to replace local host with the IP Addresses of the actual server component
 [Service]
 User=roboshop
-Environment=REDIS_HOST=<REDIS-SERVER-IP>
-Environment=CATALOGUE_HOST=<CATALOGUE-SERVER-IP>
+Environment=REDIS_HOST=10.0.7.192
+Environment=CATALOGUE_HOST=10.0.0.195
 Environment=CATALOGUE_PORT=8080
 ExecStart=/bin/node /app/server.js
 SyslogIdentifier=cart

@@ -1,11 +1,11 @@
+
 [Unit]
 Description=Shipping Service
 
-# Need to replace local host with the IP Addresses of the actual server component
 [Service]
 User=roboshop
-Environment=CART_ENDPOINT=<CART-SERVER-IPADDRESS>:8080
-Environment=DB_HOST=<MYSQL-SERVER-IPADDRESS>
+Environment=CART_ENDPOINT=10.0.7.164:8080
+Environment=DB_HOST=10.0.2.227
 ExecStart=/bin/java -jar /app/shipping.jar
 SyslogIdentifier=shipping
 
