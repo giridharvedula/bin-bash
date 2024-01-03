@@ -1,7 +1,6 @@
 #!/bin/bash
 # installing nging server 
 dnf install nginx -y
-dnf install unzip -y
 
 # enble and start ngin server 
 systemctl enable nginx 
