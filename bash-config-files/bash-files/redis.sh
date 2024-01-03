@@ -6,8 +6,8 @@ dnf module enable redis:remi-6.2 -y
 dnf install redis -y
 
 # Update the Redis conf file to listen 127.0.0.0 > 0.0.0.0
-sed -i '' 's/127.0.0.0/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf 
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf 
 
 # Enable and Start Redis service 
 systemctl enable redis
-systemctl start redis
+systemctl restart redis
