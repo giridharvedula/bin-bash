@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Setup MongoDB repo file into the repo directory
-cp ../repo-files/mongodb.repo /etc/yum.repos.d/
+cp "/bash-config-files/repo-files/mongodb.repo" "/etc/yum.repos.d/"
 
 # Install MongoDB server by executing below command 
 dnf install mongodb-org -y
+dnf install unzip -y
 
 # Enable and start MongoDB service 
 systemctl enable mongodb

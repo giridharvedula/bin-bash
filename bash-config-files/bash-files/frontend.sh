@@ -1,6 +1,7 @@
 #!/bin/bash
 # installing nging server 
-yum install nginx -y 
+dnf install nginx -y
+dnf install unzip -y
 
 # enble and start ngin server 
 systemctl enable nginx 
@@ -17,9 +18,7 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip
 
 # Copy Nginx reverse proxy configuration file
-cp ../roboshop.conif /etc/nginx/default.d/
+cp "../roboshop.conf" "/etc/nginx/default.d/"
 
 # Restart Nginx server to reload the changes
 systemctl restart nginx 
-
-cp "../repo-files/mongodb.repo" "/etc/us"
