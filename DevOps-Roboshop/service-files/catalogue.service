@@ -1,0 +1,13 @@
+[Unit]
+Description = Catalogue Service
+
+# Need to replace local host with the IP Addresses of the actual server component
+[Service]
+User=roboshop
+Environment=MONGO=true
+Environment=MONGO_URL="mongodb://10.0.2.227:27017/catalogue"
+ExecStart=/bin/node /app/server.js
+SyslogIdentifier=catalogue
+
+[Install]
+WantedBy=multi-user.target
