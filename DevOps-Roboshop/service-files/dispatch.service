@@ -1,10 +1,9 @@
 [Unit]
 Description = Dispatch Service
 
-# Need to replace local host with the IP Addresses of the actual server component
 [Service]
 User=roboshop
-Environment=AMQP_HOST=RABBITMQ-IP
+Environment=AMQP_HOST=10.0.7.127
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=roboshop123
 ExecStart=/app/dispatch

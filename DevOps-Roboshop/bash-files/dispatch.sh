@@ -26,4 +26,4 @@ sed -i '' 's/127.0.0.0/IP-Address/' /etc/systemd/system/cart.service
 # Reload the deamon, enable and start the servie 
 systemctl daemon-reload
 systemctl enable dispatch
-systemctl start dispatch
+systemctl restart dispatch

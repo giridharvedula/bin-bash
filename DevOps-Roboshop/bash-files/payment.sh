@@ -7,13 +7,14 @@ dnf install python36 gcc python-devel -y
 useradd roboshop
 
 # Download the appliction code to the above created directory
+mkdir /app 
 curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment.zip 
 cd /app 
 unzip /tmp/payment.zip
 
 # Install the dependencies 
 cd /app
-pip 3.6 install -r requirements.txt
+pip3.6 install -r requirements.txt
 
 # Copy catalogue service file 
 cp ../service-files/payment.service /etc/systemd/system/
@@ -24,6 +25,6 @@ sed -i '' 's/127.0.0.0/<IP-Address/' /etc/systemd/system/cart.service
 # Reload the deamon, enable and start the servie 
 systemctl daemon-reload
 systemctl enable payment
-systemctl start payment
+systemctl restart payment
 
 # Udate catalogue server ip address in frontend configuration <roboshop.conf>

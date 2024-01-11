@@ -9,9 +9,8 @@ dnf install rabbitmq-server -y
 
 # Enable and Start RabbitMQ service
 systemctl enable rabbitmq-server 
-systemctl start rabbitmq-server 
+systemctl restart rabbitmq-server 
 
 # Create a user name and pass for RabbitMQ 
 rabbitmqctl add_user roboshop roboshop123
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
-
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" 
